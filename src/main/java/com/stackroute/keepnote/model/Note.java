@@ -22,11 +22,11 @@ public class Note {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int noteId;
-	@Column(length=10, nullable=false)
+	@Column(length=10)
 	private String noteTitle;
-	@Column(length=50, nullable=false)
+	@Column(length=50)
 	private String noteContent;	
-	@Column(length=10, nullable=false)
+	@Column(length=10)
 	private String noteStatus;	
 	private LocalDateTime createdAt;
 	

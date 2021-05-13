@@ -1,16 +1,13 @@
 package com.stackroute.keepnote.dao;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
+import com.stackroute.keepnote.model.Note;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
-import com.stackroute.keepnote.model.Note;
+import javax.transaction.Transactional;
+import java.util.List;
 
 /*
  * This class is implementing the NoteDAO interface. This class has to be annotated with @Repository
@@ -21,7 +18,6 @@ import com.stackroute.keepnote.model.Note;
  * 					transaction. The database transaction happens inside the scope of a persistence 
  * 					context.  
  * */
-
 @Repository
 @Transactional
 public class NoteDAOImpl implements NoteDAO {
@@ -32,12 +28,9 @@ public class NoteDAOImpl implements NoteDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public NoteDAOImpl(SessionFactory sessionFactory) {
-		this.sessionFactory=sessionFactory;
-	}
-	
-	public Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
+
+	 public NoteDAOImpl(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
 	/*
@@ -45,8 +38,10 @@ public class NoteDAOImpl implements NoteDAO {
 	 */
 
 	public boolean saveNote(Note note) {
-		getCurrentSession().save(note);
+		Session session=sessionFactory.getCurrentSession();
+		session.save(note);
 		return true;
+
 	}
 
 	/*
@@ -54,7 +49,9 @@ public class NoteDAOImpl implements NoteDAO {
 	 */
 
 	public boolean deleteNote(int noteId) {
-		return false;
+		Session session=sessionFactory.getCurrentSession();
+		session.delete(getNoteById(noteId));
+		return true;
 
 	}
 
@@ -63,22 +60,27 @@ public class NoteDAOImpl implements NoteDAO {
 	 * order(showing latest note first)
 	 */
 	public List<Note> getAllNotes() {
-		return null;
-
+		Session session=sessionFactory.getCurrentSession();
+		List<Note> notes=session.createQuery("from Note",Note.class).getResultList();
+		return notes;
 	}
 
 	/*
 	 * retrieve specific note from the database(note) table
 	 */
 	public Note getNoteById(int noteId) {
-		return null;
+		Session session=sessionFactory.getCurrentSession();
+		Note note=session.get(Note.class, noteId);
+		return note;
 
 	}
 
 	/* Update existing note */
 
 	public boolean UpdateNote(Note note) {
-		return false;
+		Session session=sessionFactory.getCurrentSession();
+		session.update(note);
+		return true;
 
 	}
 

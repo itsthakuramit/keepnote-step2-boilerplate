@@ -9,6 +9,11 @@
 	<name>KeepNote-Step2-Boilerplate Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
+	<properties>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+	</properties>
+
 	<dependencies>
 
 		<!-- dependency for JUNIT 4 to be added -->

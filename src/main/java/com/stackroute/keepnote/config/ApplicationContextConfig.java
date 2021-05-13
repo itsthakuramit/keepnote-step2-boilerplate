@@ -34,7 +34,7 @@ public class ApplicationContextConfig {
 	public DataSource getDataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/hclaniyalDB?createDatabaseIfNotExist=true&useSSL=false");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/noteDB?createDatabaseIfNotExist=true&useSSL=false");
 		dataSource.setUsername("root");
 		dataSource.setPassword("root");
 		return dataSource;
@@ -57,7 +57,7 @@ public class ApplicationContextConfig {
 	@Bean
 	public SessionFactory getSessionFactory(DataSource dataSource) {
 		LocalSessionFactoryBuilder lsfb = new LocalSessionFactoryBuilder(dataSource);
-		lsfb.scanPackages("com.stackroute.playerapp");
+		lsfb.scanPackages("com.stackroute.keepnote");
 		lsfb.addProperties(getHibernateProperties());
 		return lsfb.buildSessionFactory();
 	}
@@ -67,7 +67,7 @@ public class ApplicationContextConfig {
 		prop.put("hibernate.show_sql", "true");
 		prop.put("hibernate.format_sql", "true");
 		prop.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-		prop.put("hibernate.hbm2ddl.auto", "create");
+		prop.put("hibernate.hbm2ddl.auto", "update");
 
 		return prop;
 	}

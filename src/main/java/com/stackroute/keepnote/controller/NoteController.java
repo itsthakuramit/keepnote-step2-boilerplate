@@ -1,17 +1,24 @@
 package com.stackroute.keepnote.controller;
 
+import java.time.LocalDateTime;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.stackroute.keepnote.dao.NoteDAO;
+import com.stackroute.keepnote.model.Note;
 
 /*
  * Annotate the class with @Controller annotation.@Controller annotation is used to mark 
  * any POJO class as a controller so that Spring can recognize this class as a Controller
  */
 
+@Controller
 public class NoteController {
-
-	public NoteController(NoteDAO noteDao) {
-		// TODO Auto-generated constructor stub
-	}
 	/*
 	 * From the problem statement, we can understand that the application requires
 	 * us to implement the following functionalities.
@@ -29,12 +36,26 @@ public class NoteController {
 	 * Create a Note object.
 	 * 
 	 */
+	
+	@Autowired
+	private NoteDAO dao;
+	
+	public NoteController(NoteDAO dao) {
+		this.dao = dao;
+	}
 
 	/*
 	 * Define a handler method to read the existing notes from the database and add
 	 * it to the ModelMap which is an implementation of Map, used when building
 	 * model data for use with views. it should map to the default URL i.e. "/index"
 	 */
+	
+	@RequestMapping("/")
+	public String getAllNotes(Model model) {
+		model.addAttribute("noteList", dao.getAllNotes());
+		return "index";
+	}
+
 
 	/*
 	 * Define a handler method which will read the NoteTitle, NoteContent,
@@ -46,16 +67,58 @@ public class NoteController {
 	 * back to the view using ModelMap This handler method should map to the URL
 	 * "/add".
 	 */
+	
+	@RequestMapping("/addNote")
+	public String addNote(Model model, @RequestParam String noteTitle, @RequestParam String noteContent, @RequestParam String noteStatus) {		
+		if(noteTitle.isEmpty() || noteContent.isEmpty() || noteStatus.isEmpty()){
+			model.addAttribute("error", "Fields should not be empty");
+			model.addAttribute("noteList", dao.getAllNotes());
+			return "index";
+		}
+		else {
+			Note note = new Note();
+			note.setNoteTitle(noteTitle);
+			note.setNoteContent(noteContent);
+			note.setNoteStatus(noteStatus);
+			note.setCreatedAt(LocalDateTime.now());
+			dao.saveNote(note);
+			model.addAttribute("noteList", dao.getAllNotes());
+			return "redirect:/";
+		}	
+	}
 
 	/*
 	 * Define a handler method which will read the NoteId from request parameters
 	 * and remove an existing note by calling the deleteNote() method of the
 	 * NoteRepository class.This handler method should map to the URL "/delete".
 	 */
+	
+	@RequestMapping("/deleteNote")
+	public String deleteNote(Model model, @RequestParam int noteId) {
+		dao.deleteNote(noteId);
+		model.addAttribute("noteList", dao.getAllNotes());
+		return "redirect:/";
+	}
 
 	/*
 	 * Define a handler method which will update the existing note. This handler
 	 * method should map to the URL "/update".
 	 */
+	
+	@RequestMapping("/updateNote")
+	public String update(Model model,@RequestParam int noteId) {
+		Note note = dao.getNoteById(noteId);
+		System.out.println(note.getNoteId());
+		model.addAttribute("note", note);
+		return "update";
+		
+	}
+	
+	@RequestMapping("/updateSave")
+	public String updateNote(Model model, @ModelAttribute Note note) {
+		dao.UpdateNote(note);
+		model.addAttribute("noteList", dao.getAllNotes());
+		return "redirect:/";
+	}
 
 }
