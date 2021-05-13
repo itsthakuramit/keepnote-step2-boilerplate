@@ -67,7 +67,7 @@
 				<td>${note.noteTitle}</td>
 				<td>${note.noteContent}</td>
 				<td>${note.noteStatus}</td>
-				<td><a href="deleteNote?noteId=${note.noteId}"><button>Delete</button></a></td>
+				<td><a href="delete?noteId=${note.noteId}"><button>Delete</button></a></td>
 				<td><a href="updateNote?noteId=${note.noteId}"><button>Update</button></a></td>
 
 			</tr>
