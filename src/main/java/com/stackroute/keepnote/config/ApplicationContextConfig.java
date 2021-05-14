@@ -38,6 +38,7 @@ public class ApplicationContextConfig {
 	    dataSource.setUrl("jdbc:mysql://" + System.getenv("MYSQL_HOST") + ":3306/" + System.getenv("MYSQL_DATABASE") +"?verifyServerCertificate=false&useSSL=false&requireSSL=false");
 	    dataSource.setUsername(System.getenv("MYSQL_USER"));
 	    dataSource.setPassword(System.getenv("MYSQL_PASSWORD"));
+	    return dataSource;
 	}
 
 	/*
