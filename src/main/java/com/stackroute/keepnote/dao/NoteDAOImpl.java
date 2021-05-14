@@ -25,11 +25,11 @@ public class NoteDAOImpl implements NoteDAO {
 	/*
 	 * Autowiring should be implemented for the SessionFactory.
 	 */
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
-
-	 public NoteDAOImpl(SessionFactory sessionFactory) {
+	public NoteDAOImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
@@ -41,7 +41,6 @@ public class NoteDAOImpl implements NoteDAO {
 		Session session=sessionFactory.getCurrentSession();
 		session.save(note);
 		return true;
-
 	}
 
 	/*
@@ -52,7 +51,6 @@ public class NoteDAOImpl implements NoteDAO {
 		Session session=sessionFactory.getCurrentSession();
 		session.delete(getNoteById(noteId));
 		return true;
-
 	}
 
 	/*
@@ -72,7 +70,6 @@ public class NoteDAOImpl implements NoteDAO {
 		Session session=sessionFactory.getCurrentSession();
 		Note note=session.get(Note.class, noteId);
 		return note;
-
 	}
 
 	/* Update existing note */
@@ -81,7 +78,5 @@ public class NoteDAOImpl implements NoteDAO {
 		Session session=sessionFactory.getCurrentSession();
 		session.update(note);
 		return true;
-
 	}
-
 }

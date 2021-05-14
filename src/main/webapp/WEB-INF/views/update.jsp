@@ -13,19 +13,23 @@
 </head>
 <body style="background-color : Beige">
 <h1 style="text-align : center;">Update Book</h1>
-<form action="updateSave" method="post">
+<form action="update" method="post">
 		<table style="with: 50%" border="2">
 			<tr>
+				<td>Note Id</td>
+				<td><input type="text" name="noteId" value="${note.noteId}" /></td>
+			</tr>
+			<tr>
 				<td>Title</td>
-				<td><input type="text" value="${note.noteTitle}" /></td>
+				<td><input type="text" name="noteTitle"value="${note.noteTitle}" /></td>
 			</tr>
 			<tr>
 				<td>Content</td>
-				<td><input type="text" value="${note.noteContent}" /></td>
+				<td><input type="text" name="noteContent" value="${note.noteContent}" /></td>
 			</tr>
 			<tr>
 				<td>Status</td>
-				<td><input type="text" value="${note.noteStatus}" /></td>
+				<td><input type="text" name="noteStatus" value="${note.noteStatus}" /></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center"><input type="submit"	value="Update Note" /></td>

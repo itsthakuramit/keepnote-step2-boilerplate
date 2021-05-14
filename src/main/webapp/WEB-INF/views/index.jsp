@@ -21,11 +21,15 @@
 	background-color : Lavender;
 	margin:auto;
 	}
+	
+	div{
+	text-align: center;
+	}
 </style>
 </head>
 <body style="background-color : CadetBlue;"></body>
 	<h1>Add Note</h1>
-	<form action="addNote" method="post">
+	<form action="add" method="post">
 		<table class="t1" style="with: 50%" border="2">
 			<tr>
 				<td>Title</td>
@@ -49,8 +53,11 @@
 	<br>
 
 	<c:if test="${not empty error}">
+	<div>
 	   <p style="color:red">Error</p>: ${error}
+	</div>
 	</c:if>
+	
 	<h1>Note List</h1>
 	<table class="t2" style="with: 50%" border="2">
 		<tr>
@@ -69,7 +76,6 @@
 				<td>${note.noteStatus}</td>
 				<td><a href="delete?noteId=${note.noteId}"><button>Delete</button></a></td>
 				<td><a href="updateNote?noteId=${note.noteId}"><button>Update</button></a></td>
-
 			</tr>
 		</c:forEach>
 	</table>
