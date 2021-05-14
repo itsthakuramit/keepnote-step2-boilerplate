@@ -112,20 +112,14 @@ public class NoteController {
 	
 	
 	@RequestMapping(value="/update", method = RequestMethod.POST)
-	public String updateNote(@ModelAttribute Note note) {
-		System.out.println(note.getNoteId()+note.getNoteContent()+note.getNoteStatus());
-		dao.UpdateNote(note);
-		return "redirect:/";
-	}
-	
-	/*@RequestParam int noteId, @RequestParam String noteTitle, @RequestParam String noteContent, @RequestParam String noteStatus) {
-		
+	public String updateNote(@RequestParam int noteId, @RequestParam String noteTitle, @RequestParam String noteContent, @RequestParam String noteStatus) {
 		Note note = new Note();
 		note.setNoteId(noteId);
 		note.setNoteContent(noteContent);
 		note.setNoteStatus(noteStatus);
 		note.setNoteTitle(noteTitle);
-		note.setCreatedAt(LocalDateTime.now());*/
-	
-	
+		note.setCreatedAt(LocalDateTime.now());
+		dao.UpdateNote(note);
+		return "redirect:/";
+	}	
 }

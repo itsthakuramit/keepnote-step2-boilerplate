@@ -32,6 +32,10 @@
 				<td><input type="text" name="noteStatus" value="${note.noteStatus}" /></td>
 			</tr>
 			<tr>
+				<td>Created At</td>
+				<td><input type="text" name="createdAt" value="${note.createdAt}" /></td>
+			</tr>
+			<tr>
 				<td colspan="2" align="center"><input type="submit"	value="Update Note" /></td>
 			</tr>
 

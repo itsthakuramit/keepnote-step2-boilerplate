@@ -45,23 +45,23 @@ public class Note {
 	}
 
 	public int getNoteId() {
-
 		return noteId;
 	}
 
 	public String getNoteTitle() {
-
 		return noteTitle;
 	}
 
 	public String getNoteContent() {
-
 		return noteContent;
 	}
 
 	public String getNoteStatus() {
-
 		return noteStatus;
+	}
+	
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
 
 	public void setNoteId(int parseInt) {
